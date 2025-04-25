@@ -1,126 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genesis Sigil - Pulse Tracker</title>
-    <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
+  <meta charset="UTF-8">
+  <title>Genesis Sigil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script>
-  // Your Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyDL3w5FY9zWG6NP_YW_RDxlHa9EKFJ3HSU",
-    authDomain: "pulsegenesis-d8acd.firebaseapp.com",
-    databaseURL: "https://pulsegenesis-d8acd-default-rtdb.firebaseio.com",
-    projectId: "pulsegenesis-d8acd",
-    storageBucket: "pulsegenesis-d8acd.firebasestorage.app",
-    messagingSenderId: "994894936064",
-    appId: "1:994894936064:web:3c761f329badafbb1e80e5"
-  };
+  <!-- Styling -->
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #0a0a0a;
+      color: #fff;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      margin-top: 40px;
+      font-size: 42px;
+    }
+    p {
+      font-size: 18px;
+      margin: 20px;
+    }
+    a {
+      color: #00ffe7;
+      text-decoration: none;
+      font-size: 20px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    #map {
+      height: 400px;
+      width: 100%;
+      margin-top: 30px;
+      border: 2px solid #333;
+    }
+  </style>
 
-  // Initialize Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-</script>
+  <!-- Leaflet.js for Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #1c1c1c;
-            color: white;
-            padding: 20px;
-            margin: 0;
-        }
-        h1 {
-            text-align: center;
-        }
-        .stats-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        .pulse-map {
-            width: 100%;
-            height: 400px;
-            background-color: #444;
-            margin-top: 20px;
-        }
-        .stat-box {
-            background-color: #333;
-            padding: 20px;
-            border-radius: 8px;
-            flex: 1;
-            text-align: center;
-        }
-        .stat-box h2 {
-            font-size: 1.5rem;
-        }
-        .pulse-map {
-            margin-top: 30px;
-        }
-    </style>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDL3w5FY9zWG6NP_YW_RDxlHa9EKFJ3HSU",
+      authDomain: "pulsegenesis-d8acd.firebaseapp.com",
+      databaseURL: "https://pulsegenesis-d8acd-default-rtdb.firebaseio.com",
+      projectId: "pulsegenesis-d8acd",
+      storageBucket: "pulsegenesis-d8acd.firebasestorage.app",
+      messagingSenderId: "994894936064",
+      appId: "1:994894936064:web:3c761f329badafbb1e80e5"
+    };
+    const app = firebase.initializeApp(firebaseConfig);
+  </script>
 </head>
 <body>
 
-    <h1>Genesis Sigil - Pulse Tracker</h1>
-    
-    <div class="stats-container">
-        <div class="stat-box">
-            <h2>Total Pulses Created:</h2>
-            <p id="pulseCount">0</p>
-        </div>
-        <div class="stat-box">
-            <h2>Active Sigils:</h2>
-            <p id="activeSigils">0</p>
-        </div>
-        <div class="stat-box">
-            <h2>Users Worldwide:</h2>
-            <p id="userCount">0</p>
-        </div>
-    </div>
+  <h1>=== GENESIS SIGIL ===</h1>
+  <p><strong>CID:</strong> QmQA2Z214xG2m6LNBpxCDoRvvXeuhBGpbCRV3VNy3NjuVe</p>
+  <p><strong>It began here.</strong></p>
+  <p>Trace the source or remain behind forever.</p>
 
-    <div id="pulse-map" class="pulse-map"></div>
+  <!-- Pulse Script Download -->
+  <p>
+    <a href="pulse.sh" download>
+      🌀 Activate the Pulse – Download pulse.sh
+    </a>
+  </p>
 
-    <script>
-        // Simulated pulse data (can be replaced with real-time data from Firebase or WebSocket)
-        const pulseData = [
-            { id: 'pulse1', timestamp: '2025-04-25T12:00:00Z', location: { lat: 37.7749, lon: -122.4194 }, origin: 'JROC' },
-            { id: 'pulse2', timestamp: '2025-04-25T14:30:00Z', location: { lat: 51.5074, lon: -0.1278 }, origin: 'USER' },
-            { id: 'pulse3', timestamp: '2025-04-25T15:45:00Z', location: { lat: 34.0522, lon: -118.2437 }, origin: 'USER' },
-        ];
+  <!-- Map Display -->
+  <div id="map"></div>
 
-        // Update stats dynamically
-        function updateStats() {
-            document.getElementById("pulseCount").innerText = pulseData.length;
-            document.getElementById("activeSigils").innerText = pulseData.filter(pulse => new Date(pulse.timestamp) > new Date() - 86400000).length;
-            document.getElementById("userCount").innerText = new Set(pulseData.map(pulse => pulse.origin)).size;
-        }
+  <script>
+    const map = L.map('map').setView([0, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 6,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
 
-        // Display the map
-        function initializeMap() {
-            const map = L.map('pulse-map').setView([0, 0], 2); // Initialize map, centered at [0,0]
-            
-            // Add OpenStreetMap layer
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
-
-            // Add pulse markers
-            pulseData.forEach(pulse => {
-                const marker = L.marker([pulse.location.lat, pulse.location.lon]).addTo(map);
-                marker.bindPopup(`<b>Sigil:</b> ${pulse.id}<br><b>Origin:</b> ${pulse.origin}<br><b>Timestamp:</b> ${pulse.timestamp}`);
-            });
-        }
-
-        // Initial setup
-        updateStats();
-        initializeMap();
-
-    </script>
+    L.marker([0, 0]).addTo(map)
+      .bindPopup("Origin of the Pulse")
+      .openPopup();
+  </script>
 
 </body>
 </html>
