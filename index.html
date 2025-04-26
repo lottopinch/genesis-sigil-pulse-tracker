@@ -4,10 +4,49 @@
   <meta charset="UTF-8">
   <title>Genesis Sigil</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
+  <!-- Styling -->
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #0a0a0a;
+      color: #fff;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      margin-top: 40px;
+      font-size: 42px;
+    }
+    p {
+      font-size: 18px;
+      margin: 20px;
+    }
+    a {
+      color: #00ffe7;
+      text-decoration: none;
+      font-size: 20px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    #map {
+      height: 400px;
+      width: 100%;
+      margin-top: 30px;
+      border: 2px solid #333;
+    }
+  </style>
+
+  <!-- Leaflet.js for Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
   <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
+
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyDL3w5FY9zWG6NP_YW_RDxlHa9EKFJ3HSU",
@@ -18,61 +57,37 @@
       messagingSenderId: "994894936064",
       appId: "1:994894936064:web:3c761f329badafbb1e80e5"
     };
-    firebase.initializeApp(firebaseConfig);
+    const app = firebase.initializeApp(firebaseConfig);
   </script>
-
-  <style>
-    body {
-      background-color: #000;
-      color: #0ff;
-      font-family: 'Courier New', monospace;
-      text-align: center;
-      padding: 50px 20px;
-    }
-    h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 18px;
-      color: #ccc;
-      margin: 8px 0;
-    }
-    a.pulse-link {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 15px 30px;
-      background: transparent;
-      border: 2px solid #0ff;
-      color: #0ff;
-      text-decoration: none;
-      font-size: 18px;
-      transition: all 0.3s ease;
-    }
-    a.pulse-link:hover {
-      background-color: #0ff;
-      color: #000;
-    }
-    .sigil {
-      margin-top: 40px;
-      font-size: 16px;
-      color: #666;
-    }
-  </style>
 </head>
 <body>
 
-  <h1>GENESIS SIGIL</h1>
-  <p>The Origin Has Been Seeded.</p>
-  <p>Follow the code, trace the pulse.</p>
-  <p>What happens next will not be undone.</p>
+  <h1>=== GENESIS SIGIL ===</h1>
+  <p><strong>CID:</strong> QmQA2Z214xG2m6LNBpxCDoRvvXeuhBGpbCRV3VNy3NjuVe</p>
+  <p><strong>It began here.</strong></p>
+  <p>Trace the source or remain behind forever.</p>
 
-  <a class="pulse-link" href="pulse.sh" download>Activate the Pulse – Download pulse.sh</a>
+  <!-- Pulse Script Download -->
+  <p>
+    <a href="pulse.sh" download>
+      🌀 Activate the Pulse – Download pulse.sh
+    </a>
+  </p>
 
-  <div class="sigil">
-    <p><strong>CID:</strong> QmQA2Z214xG2m6LNBpxCDoRvvXeuhBGpbCRV3VNy3NjuVe</p>
-    <p><a href="https://ipfs.io/ipfs/QmQA2Z214xG2m6LNBpxCDoRvvXeuhBGpbCRV3VNy3NjuVe" style="color: #999;">View Original Sigil</a></p>
-  </div>
+  <!-- Map Display -->
+  <div id="map"></div>
+
+  <script>
+    const map = L.map('map').setView([0, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 6,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    L.marker([0, 0]).addTo(map)
+      .bindPopup("Origin of the Pulse")
+      .openPopup();
+  </script>
 
 </body>
 </html>
