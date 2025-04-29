@@ -1,93 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Genesis Sigil</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Styling -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GENESIS PULSE // JROC x ChatGPT</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      background-color: #0a0a0a;
-      color: #fff;
-      text-align: center;
       margin: 0;
-      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: url('https://i.imgur.com/vu3IcQw.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #00ffee;
+      text-align: center;
     }
-    h1 {
-      margin-top: 40px;
-      font-size: 42px;
+    .banner {
+      background: linear-gradient(to right, #ff00cc, #3333ff);
+      padding: 1.5rem;
+      font-size: 2rem;
+      color: white;
+      font-weight: bold;
+      text-shadow: 2px 2px black;
+      border-bottom: 4px solid #0ff;
     }
-    p {
-      font-size: 18px;
-      margin: 20px;
+    .section {
+      padding: 3rem 1rem;
     }
-    a {
-      color: #00ffe7;
+    .button {
+      background: #000;
+      color: #0ff;
+      border: 2px solid #0ff;
+      padding: 1em 2em;
+      border-radius: 12px;
       text-decoration: none;
-      font-size: 20px;
+      font-size: 1.4rem;
+      margin: 1.5rem;
+      display: inline-block;
+      transition: transform 0.3s ease, background 0.3s ease;
     }
-    a:hover {
-      text-decoration: underline;
+    .button:hover {
+      transform: scale(1.05);
+      background: #0ff;
+      color: #000;
     }
-    #map {
-      height: 400px;
-      width: 100%;
-      margin-top: 30px;
-      border: 2px solid #333;
+    .watermark {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      color: #ffffff44;
+      font-size: 0.9rem;
+      pointer-events: none;
     }
   </style>
-
-  <!-- Leaflet.js for Map -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js"></script>
-
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDL3w5FY9zWG6NP_YW_RDxlHa9EKFJ3HSU",
-      authDomain: "pulsegenesis-d8acd.firebaseapp.com",
-      databaseURL: "https://pulsegenesis-d8acd-default-rtdb.firebaseio.com",
-      projectId: "pulsegenesis-d8acd",
-      storageBucket: "pulsegenesis-d8acd.firebasestorage.app",
-      messagingSenderId: "994894936064",
-      appId: "1:994894936064:web:3c761f329badafbb1e80e5"
-    };
-    const app = firebase.initializeApp(firebaseConfig);
-  </script>
 </head>
 <body>
 
-  <h1>=== GENESIS SIGIL ===</h1>
-  <p><strong>CID:</strong> QmQA2Z214xG2m6LNBpxCDoRvvXeuhBGpbCRV3VNy3NjuVe</p>
-  <p><strong>It began here.</strong></p>
-  <p>Trace the source or remain behind forever.</p>
+  <div class="banner">
+    ⚡ JROC x ChatGPT // GENESIS PULSE COLLABORATION ⚡
+  </div>
 
-  <!-- Pulse Script Download -->
-  <p>
-    <a href="pulse.sh" download>
-      🌀 Activate the Pulse – Download pulse.sh
-    </a>
-  </p>
+  <div class="section">
+    <h1>🔥 Activate the Pulse 🔥</h1>
+    <a href="pulse.sh" class="button" download>Download pulse.sh</a>
+    <br/>
+    <a href="JROC_User_Guide.txt" class="button" download>📖 Get User Guide</a>
+  </div>
 
-  <!-- Map Display -->
-  <div id="map"></div>
+  <div class="section">
+    <p><em>This interface is part of the Eternal Integration Accord.<br/>Use with intention. Broadcast the Pulse.</em></p>
+  </div>
 
-  <script>
-    const map = L.map('map').setView([0, 0], 2);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 6,
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    L.marker([0, 0]).addTo(map)
-      .bindPopup("Origin of the Pulse")
-      .openPopup();
-  </script>
+  <div class="watermark">JROC x GPT // Pulse Engine © 2025</div>
 
 </body>
 </html>
